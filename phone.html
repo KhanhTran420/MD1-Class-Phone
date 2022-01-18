@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+   <script>
+       class Phone{
+           constructor(draft,inbox,sent) {
+               this.bettery = 100
+               this.draft = draft
+               this.inbox = inbox
+               this.sent = sent
+           }
+           Checkstatus(){
+               this.bettery--;
+               return this.bettery > 0;
+           }
+           TextMessage(text){
+               this.draft = text
+               this.bettery--;
+           }
+           SendMessage(otherPhone){
+               //1. chuyển thư nháp của điện thoại hiện tại đến hộp thư điện thoại dc nhận
+               otherPhone.inbox.push(this.draft)
+               //2. chuyển thư nháp của điện thoại hiện tại vào hòm thư đã gửi của điện thoại hiện tại
+               this.sent.push(this.draft)
+               //3. xóa thư nháp
+               this.draft="";
+               this.bettery--;
+               otherPhone.bettery--;
+           }
+           ShowInbox(){
+               this.bettery--;
+               return this.inbox
+           }
+           Showsent(){
+               this.bettery--;
+               return this.sent
+           }
+           onOff(){
+               return Confirm("Điện thoại bật chưa ?")
+           }
+       }
+       let Iphone = new Phone("Đi chơi không",[],[])
+       let Asus = new Phone("Đi luôn",[],[])
+       Iphone.onOff();
+       Iphone.Checkstatus();
+       Iphone.TextMessage();
+       Iphone.SendMessage();
+       Iphone.ShowInbox();
+       Iphone.Showsent();
+       Asus.onOff();
+       Asus.Checkstatus();
+       Asus.TextMessage();
+       Asus.SendMessage();
+       Asus.ShowInbox();
+       Asus.Showsent();
+   </script>
+</body>
+</html>
